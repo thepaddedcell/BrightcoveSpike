@@ -558,6 +558,12 @@ FW_EXTERN BOOL FWGetCookieOptOutState(void);
 - (FWTimePositionClass)timePositionClass;	   
 
 /**
+ *	Get the slot's embedded ads duration
+ *	\return The embeded ads duration of the temporal slot. -1 if not available.
+ */
+- (NSTimeInterval)embeddedAdsDuration;
+
+/**
  *	Get the ad instances in the slot
  *	\return An array of id<FWAdInstance>
  */
@@ -1019,6 +1025,12 @@ FW_EXTERN BOOL FWGetCookieOptOutState(void);
  *  \return fullscreen state
  */
 - (BOOL)moviePlayerFullscreen;
+
+/**
+ *  Return all renderable renditions for Renderer
+ *  \return an array of id<FWCreativeRendition>
+*/
+- (NSArray * /* id<FWCreativeRendition> */)renderableCreativeRenditions;
 
 /**
  *	Process renderer event

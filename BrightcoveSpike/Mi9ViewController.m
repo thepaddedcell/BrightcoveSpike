@@ -45,6 +45,7 @@
         }];
     }];
     
+//    self.controls.fullScreenButton
     [self submitAdRequest];
     
     // Listen for a cue point to trigger an ad
@@ -79,8 +80,9 @@
                             properties:@{ @"adId": @"some-ad-configuration" }];
     [self.player.playbackEmitter emit:BCEventSetCuePoint withDetails:@{ @"cuePoint": cuePoint }];
 
-    NSString *token = @"Vb3fqavTKFDDZbnnGGtbhKxam7uHduOnob-2MJlpHmUnzSMWbDe5bg.."; //Live read-token
-    NSString *videoId = @"1988105226001";
+//    NSString *token = @"Vb3fqavTKFDDZbnnGGtbhKxam7uHduOnob-2MJlpHmUnzSMWbDe5bg.."; //Live read-token
+    NSString *token = @"pGhuLmBccsm3_lQTzOBDMvQHikhB6hjUr1IpRfeGd0vK03rhwTmbhA.."; // DEV TOKEN
+    NSString *videoId = @"1787715546001";
     BCCatalog *catalog = [[BCCatalog alloc] initWithToken:token];
     [catalog findVideoByID:videoId options:nil callBlock:^(BCError *error, BCVideo *video) {
         [self.player insertVideo:video afterItem:nil];
@@ -100,9 +102,9 @@
     self.adManager = newAdManager();
 	// contact FreeWheel Integration Support Engineer about configuration of ad network/serverUrl/...
     //set networkId of the customer MRM network
-	[self.adManager setNetworkId:42015];  //Ninemsn: 183618
+	[self.adManager setNetworkId:183618];  //Ninemsn: 183618
     //set the ad server URL to which all ad requests will go
-	[self.adManager setServerUrl:@"http://cue.v.fwmrm.net"];
+	[self.adManager setServerUrl:@"http://2cd42c.v.fwmrm.net"];
     
     //Needed for fullscreen take over
     [self.adManager setCurrentViewController:self];
@@ -113,18 +115,18 @@
     self.adContext = [self.adManager newContext];
     
     //contact FreeWheel Integration Support Engineer about configuration of profiles/slots/keyvalue for your integration.
-	[self.adContext setPlayerProfile:@"microsoft_demo_ios"
+	[self.adContext setPlayerProfile:@"188283:MSN_AU_iOS_Test"
           defaultTemporalSlotProfile:nil
        defaultVideoPlayerSlotProfile:nil
        defaultSiteSectionSlotProfile:nil];
 	
-    [self.adContext setSiteSectionId:@"TestSection"
+    [self.adContext setSiteSectionId:@"prerollVAST"
                               idType:FW_ID_TYPE_CUSTOM
                       pageViewRandom:0
                            networkId:0
                           fallbackId:0];
     
-	[self.adContext setVideoAssetId:@"183618"
+	[self.adContext setVideoAssetId:@"1787715546001"
                              idType:FW_ID_TYPE_CUSTOM
                            duration:160
                        durationType:FW_VIDEO_ASSET_DURATION_TYPE_EXACT
@@ -133,6 +135,8 @@
                     videoPlayRandom:0
                           networkId:0
                          fallbackId:0];
+    
+    [self.adContext addTemporalSlot:@"preroll" adUnit:@"preroll" timePosition:0 slotProfile:@"" cuePointSequence:0 minDuration:5 maxDuration:60 acceptPrimaryContentType:nil acceptContentType:nil];
     
 	//tell the ad context on which base view object to render video ads
     [self.adContext setVideoDisplayBase:self.view];
